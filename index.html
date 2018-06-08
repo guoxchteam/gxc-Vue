@@ -2,17 +2,40 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>学习Vue</title>
 	<script src="./lib/vue2.5.16.js"></script>
 </head>
 <body>
-	<div id="root">{{msg}}</div>
+	<div id="root">
+		<!-- {{ }}是Vue的表达式 -->
+		<!-- :属性 可以单项绑定数据值 -->
+		<h1 :title="title">guoxch {{msg}}</h1>
+		<!-- v-text v-html区别在于html标签 -->
+		<div v-text="html"></div>
+		<div v-html="html"></div>
+		<!-- Vue绑定点击事件 -->
+		<button @click="handleClick">{{msg}}</button>
+		<br>
+		<!-- v-model可以双向绑定数据值 -->
+		<input v-model="msg"/>
+	</div>
 	<script>
 		new Vue({
 			el:"#root",
 			data:{
-				msg:"hello world"
-			}
+				msg:"hello world",
+				title :"title是html的鼠标提示",
+				html:"<h2>boom shakalaka</h2>",
+			},
+			methods:{
+				handleClick: function(){
+					if(this.msg == "hello world"){
+						this.msg = 'LaLaLa'
+					}else{
+						this.msg = 'hello world'
+					}
+				}
+			},
 		})
 	</script>
 </body>
