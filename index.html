@@ -10,22 +10,40 @@
 		<!-- {{ }}是Vue的表达式 -->
 		<!-- :属性 可以单项绑定数据值 -->
 		<h1 :title="title">guoxch {{msg}}</h1>
-		<!-- v-text v-html区别在于html标签 -->
-		<div v-text="html"></div>
-		<div v-html="html"></div>
+		<!-- v-if 会把标签从dom中删除 v-show 只是隐藏(性能更高) v-text v-html区别在于html标签 -->
+		<div v-if="show" v-text="html"></div>
+		<div v-show="show" v-html="html"></div>
 		<!-- Vue绑定点击事件 -->
 		<button @click="handleClick">{{msg}}</button>
 		<br>
 		<!-- v-model可以双向绑定数据值 -->
 		<input v-model="msg"/>
+		<input v-model="msg2"/>
+		<!-- fulltext是computed计算属性 -->
+		<div>{{fulltext}}</div>
+		<!-- watch侦听器、写业务逻辑的主要位置 -->
+		<div>{{count}}</div>
+		
+		<button @click="toggleClike">toggle</button>
+		<!-- v-for 循环展示数据-->
+		<ul>
+			<div v-for="(item,index) of list" :key="index">{{item}}</div>
+		</ul>
+	</div>
+	<div id="root2">
+		
 	</div>
 	<script>
 		new Vue({
 			el:"#root",
 			data:{
 				msg:"hello world",
+				msg2:"boom shakalaka",
 				title :"title是html的鼠标提示",
 				html:"<h2>boom shakalaka</h2>",
+				count:0,
+				show:true,
+				list:[1,2,3,4,5,6,7,8,9],
 			},
 			methods:{
 				handleClick: function(){
@@ -34,9 +52,33 @@
 					}else{
 						this.msg = 'hello world'
 					}
+				},
+				toggleClike:function(){
+					this.show = !this.show
 				}
 			},
-		})
+			computed:{
+				fulltext: function(){
+					return this.msg +' '+ this.msg2
+				}
+			},
+			watch:{
+				fulltext:function(){
+					this.count++
+				}
+			}
+		});
+		new Vue({
+			el:"#root2",
+			data:{
+				show:true,
+			},
+			methods:{
+				toggleClike:function(){
+					this.show = !this.show
+				}
+			},
+		});
 	</script>
 </body>
 </html>
