@@ -26,7 +26,12 @@
 		//全局组件
 		Vue.component('todo-item',{
 			props:['content'],
-			template:'<li>{{content}}</li>'
+			template:'<li @click="handleClick">{{content}}</li>',
+			methods:{
+				handleClick:function() {
+					alert("abc");
+				}
+			}
 		});
 
 		new Vue({
