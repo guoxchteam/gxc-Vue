@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <img src="./assets/logo.png">
+    <helloWorld/>
     <input v-model="inputValue"/>
     <button @click="handleSubmit">提交</button>
     <ul>
@@ -15,10 +17,12 @@
 
 <script>
 import TodoItem from './components/TodoItem'
+import HelloWorld from './components/HelloWorld'
 
 export default {
   components : {
-    'todo-item':TodoItem
+    'helloWorld':HelloWorld,
+    'todo-item':TodoItem,
   },
   data () {
     return {
@@ -38,6 +42,13 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
