@@ -13,7 +13,9 @@
 			<button @click="handleSubmit">提交</button>
 		</div>
 		<ul>
-			<todo-item v-for="(item,index) of list " :key="index" :content='item'></todo-item>
+			<todo-item v-for="(item,index) of list " :key="index" 
+			:content='item' :index='index' 
+			@delete="handleDelete"></todo-item>
 
 		</ul>
 	</div>
@@ -25,11 +27,14 @@
 		
 		//全局组件
 		Vue.component('todo-item',{
-			props:['content'],
+			//接收父组件传的多个属性
+			props:['content','index'],
 			template:'<li @click="handleClick">{{content}}</li>',
 			methods:{
 				handleClick:function() {
-					alert("abc");
+					//alert("abc");
+					//自定义事件 并给这个事件传一个下标数值
+					this.$emit('delete',this.index)
 				}
 			}
 		});
@@ -48,6 +53,14 @@
 					this.list.push(this.inputValue);
 					this.inputValue ='';
 				},
+				//通过 子组件 的自定义事件来调用 父组件 中的方法（组建之间的交互）
+				//通过点击子组件出发的delete事件、delete事件会调用handleDate方法
+				handleDelete:function(index){
+					//可以接收到子组件给事件传的数值
+					console.log(index);
+					//从list中删除对应下标的元素
+					this.list.splice(index,1);
+				}
 			},
 			
 		});
